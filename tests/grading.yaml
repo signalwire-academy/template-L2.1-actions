@@ -27,10 +27,16 @@ checks:
   - id: has_sms_action
     name: "SMS Action Configured"
     points: 25
-    type: swml_contains
+    type: exec
     file: solution/agent.py
-    require:
-      - text: "send_sms"
+    function: confirm_appointment
+    args:
+      date: "Monday"
+      time: "2pm"
+      phone: "+15551234567"
+    expect:
+      stdout_contains:
+        - "send_sms"
   - id: test_confirm
     name: "Test: Confirm appointment"
     points: 25
